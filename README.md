@@ -50,7 +50,7 @@ P4DDLe is evaluated using CIC-DDoS2019 [3], a recent dataset of DDoS attacks pro
 
 ### Settings and Execution
 
-Informations about the settings and how to execute each algorithm can be found on the README of each specific folder.
+Information about the settings and how to execute each algorithm can be found on the README of each specific folder.
 
 ## Acknowledgements
 

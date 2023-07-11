@@ -1,5 +1,4 @@
-# General informations
-
+# General information
 
 This code belongs to the test branch, it differs from the other code because a few changes have been done in order to perform a set of tests in a simpler manner. 
 
