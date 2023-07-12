@@ -1,9 +1,4 @@
-This is a test branch. 
-
-This branch has been used to test with the help of scripts a lot of combinations of registers speed and sampling rate. 
-
-There are two folders: _control plane_ contains the files of the controller; _data plane_ contains the p4 code.
-
+## Baseline - P4 Algorithm
 
 ### Notes:
 You need to install mininet with ``` sudo apt install mininet ``` and also python mininet API and thrift API with ```pip3 install mininet thrift```

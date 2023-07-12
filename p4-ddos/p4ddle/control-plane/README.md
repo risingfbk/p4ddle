@@ -1,10 +1,8 @@
-# General information
+## Control Plane
 
-This code belongs to the test branch, it differs from the other code because a few changes have been done in order to perform a set of tests in a simpler manner. 
+### Setup
 
-## Setup
-
-In file _experiment_**.sh_ a few parameters have to be set:
+In file *experiment_**.sh* a few parameters have to be set:
 
 * the pcap files of the attacks and benign traces
 * the name and benign number of packets per second
@@ -33,10 +31,10 @@ And install new packages: psutil is required in order to automate the tests; thr
 The file ```p4_util.py``` at line 2 includes the extra APIs of the BMv2. They are installed in a folder that depends on your python version: check your python version and fix the path otherwise the script will crash.
 
 
-## Run
+### Run
 To run the tests just run the script:
 ```
-(python38)$ ./test.sh
+(python38)$ ./experiment_**.sh
 ```
 
 

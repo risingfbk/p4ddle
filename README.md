@@ -8,7 +8,7 @@ R. Doriguzzi-Corin, L.A. Dias Knob, L. Mendozzi, D. Siracusa and M. Savi. "Intro
 
 ## Simulation Scenario
 
-We implement a python script that simulate the P4DDLe and the Baseline algorithms with the 
+We developed a Python script to simulate the behavior from the P4DDLe and the baseline algorithms without actual network data. This simulation was created to a more fast evaluation of the correlation between the size of the memory block and the maximum number of packets/flow and the number of cells of the Bloom Filter.
 
 ### Dataset
 
