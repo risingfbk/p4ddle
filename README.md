@@ -4,7 +4,7 @@ P4DDLe is a framework that exploits the flexibility of P4-based programmable dat
 
 More details on the architecture of P4DDLe, its performance and experiments are available in the following research paper:
 
-R. Doriguzzi-Corin, L.A. Dias Knob, L. Mendozzi, D. Siracusa and M. Savi. "Introducing Packet-Level Analysis in Programmable Data Planes to Advance Network Intrusion Detection". *arXiv preprint arXiv:2002.04902*, 2023.
+R. Doriguzzi-Corin, L.A. Dias Knob, L. Mendozzi, D. Siracusa and M. Savi. "Introducing Packet-Level Analysis in Programmable Data Planes to Advance Network Intrusion Detection". *arXiv preprint arXiv:2307.05936*, 2023.
 
 ## Simulation Scenario
 
@@ -56,7 +56,7 @@ Information about the settings and how to execute each algorithm can be found on
 
 If you are using P4DDLe's code for a scientific research, please cite the related paper in your manuscript as follows:
 
-*Doriguzzi-Corin, R., Dias Knob, L. A., Mendozzi, L., Siracusa, D., and Savi, M.. (2023) "Introducing Packet-Level Analysis in Programmable Data Planes to Advance Network Intrusion Detection". *arXiv preprint arXiv:2002.04902*.*
+*Doriguzzi-Corin, R., Dias Knob, L. A., Mendozzi, L., Siracusa, D., and Savi, M.. (2023) "Introducing Packet-Level Analysis in Programmable Data Planes to Advance Network Intrusion Detection". *arXiv preprint arXiv:2307.05936*.*
 
 ## License
 
