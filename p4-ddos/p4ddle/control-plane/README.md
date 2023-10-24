@@ -15,21 +15,14 @@ In order to execute this operation with the help of the script, tcpreplay has to
 sudo chmod a+s /usr/bin/tcpreplay
 ```
 
-This branch requires two additional packages. Activate the new ```python38``` environment:
+If not active, start your ``` conda ``` environment:
 
 ```
-conda activate python38
-```
-
-And install new packages: psutil is required in order to automate the tests; thrift is required because we are now working in a conda environment
-
-```
-(python38)$ pip3 install psutil thrift
+conda activate python39
 ```
 
 #### Include extra APIs
 The file ```p4_util.py``` at line 2 includes the extra APIs of the BMv2. They are installed in a folder that depends on your python version: check your python version and fix the path otherwise the script will crash.
-
 
 ### Run
 To run the tests just run the script:

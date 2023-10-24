@@ -248,6 +248,8 @@ def generate_and_store_packets_from_features(features,temp_dict,start_time_windo
         pf.id_fwd = (src_ip, src_port, dst_ip, dst_port, ip_upper_protocol)
         pf.id_bwd = (dst_ip, dst_port, src_ip, src_port, ip_upper_protocol)
        
+        print(pf)
+
         temp_dict = store_packet(pf,temp_dict,start_time_window,max_flow_len)
 
     return temp_dict

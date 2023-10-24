@@ -464,7 +464,7 @@ def main(argv, tcpreplay_pid):
                 #time.sleep(0.2)
 
 def report_results(Y_true, Y_pred,packets, model_name, dataset_filename, stats_file,prediction_time,process_time, 
-    trasmission_time,packets_per_sample_sizes, avg_packets_in_registers_in_round, total_packet_captured_in_round, round_time, round_counter, packet_writer):
+    trasmission_time=0,packets_per_sample_sizes=0, avg_packets_in_registers_in_round=0, total_packet_captured_in_round=0, round_time=0, round_counter=0, packet_writer=0):
     
     ddos_rate = '{:04.3f}'.format(sum(Y_pred)/Y_pred.shape[0])
 
@@ -505,8 +505,6 @@ def report_results(Y_true, Y_pred,packets, model_name, dataset_filename, stats_f
 
 if __name__ == "__main__":
 
-    #background_speed=os.getenv("background_speed")
-    #attack_speed=os.getenv("attack_speed")
     pcap_folder=os.getenv("pcap_folder")
 
     pcap_file=os.getenv("pcap_file")
@@ -517,8 +515,6 @@ if __name__ == "__main__":
     interface=os.getenv("target_interface")
     attack_name=os.getenv("attack_name")
 
-    #attack_string="python traffic_generator.py attack -bs {} -as {} -pf {} -i {} -ad {}".format(background_speed, attack_speed, pcap_folder, interface, duration)
-    #attack_string="python traffic_generator.py -f {} -i {} -ad {} -s {}".format(pcap_file, interface, duration, attack_speed)
     attack_string="python traffic_generator.py -f {} -i {} -a {} -b {} -s {} -p {}".format(pcap_file, interface, attack_name, benign_file, speed, attack_packets)
     attack=subprocess.Popen(attack_string, shell=True, stdout=subprocess.DEVNULL)
 

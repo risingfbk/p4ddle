@@ -20,7 +20,7 @@ parser MyParser(packet_in packet,
 
         meta.ingress_timestamp=standard_metadata.ingress_global_timestamp;
         meta.packet_length=hdr.ipv4.totalLen;
-        meta.ip_flags=hdr.ipv4.flags++hdr.ipv4.fragOffset;
+        meta.ip_flags=hdr.ipv4.fragOffset++hdr.ipv4.flags;
         meta.tcp_len=16w0;
         meta.tcp_ack=32w0;
         meta.tcp_flags=9w0;

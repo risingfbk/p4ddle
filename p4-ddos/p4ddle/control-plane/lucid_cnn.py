@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#Sample commands
+# Sample commands
 # Training: python3 lucid_cnn.py --train ./sample-dataset/  --epochs 100
 # Testing: python3  lucid_cnn.py --predict ./sample-dataset/ --model ./sample-dataset/10t-10n-SYN2020-LUCID.h5
 
@@ -263,8 +263,7 @@ def main(argv, tcpreplay_pid):
                         help='Perform a prediction on pre-preocessed data')
 
     parser.add_argument('-pl', '--predict_live', nargs='?', type=str,
-                        help='Perform a prediction on live traffic from network interface, pcap file or p4 compatible switch in format <host>:<port>')
-
+                        help='Perform a prediction on a P4 compatible switch in format <host>:<port>')
 
     parser.add_argument('--p4_switch_json_file', help='JSON description of P4 program',
                         type=str, required=False)
@@ -272,8 +271,6 @@ def main(argv, tcpreplay_pid):
     parser.add_argument('--p4_switch_pre', help='Packet Replication Engine used by target',
                         type=str, choices=['None', 'SimplePre', 'SimplePreLAG'],
                         default='SimplePre', action=ActionToPreType)
-
-
 
     parser.add_argument('-i', '--iterations', default=1, type=int,
                         help='Predict iterations')
@@ -319,7 +316,6 @@ def main(argv, tcpreplay_pid):
             print ("\nCurrent dataset folder: ", dataset_folder)
 
             trainCNNModels(dataset_name + "-LUCID" + p4, args.epochs,X_train,Y_train,X_val,Y_val,dataset_folder, time_window, max_flow_len, args.regularization, args.dropout)
-
 
     if args.predict is not None:
         if os.path.isdir("./log") == False:
@@ -388,6 +384,7 @@ def main(argv, tcpreplay_pid):
         if args.predict_live is None:
             print("Please specify a valid network interface, pcap file or p4-compatible switch address!")
             exit(-1)
+            
         elif args.predict_live.endswith('.pcap'):
             pcap_file = args.predict_live
             traffic_source = pyshark.FileCapture(pcap_file)
@@ -451,13 +448,6 @@ def main(argv, tcpreplay_pid):
                     pt1 = time.time()
                     prediction_time = pt1 - pt0
 
-                    #hf = h5py.File('log_pred-'+str(r)+'.hdf5', 'w')
-                    #hf.create_dataset('set_x', data=X)
-                    #hf.create_dataset('set_not_normalize_x', data=np.array(oldX))
-                    #hf.create_dataset('set_y_true', data=Y_true)
-                    #hf.create_dataset('set_y_pred', data=Y_pred)
-                    
-                    #hf.close()
                     [packets] = count_packets_in_dataset([X])
                     report_results(Y_true, Y_pred, packets, model_name_string,
                                    data_source, stats_file, prediction_time,process_time, trasmission_time,packets_per_sample_sizes,
@@ -472,10 +462,9 @@ def main(argv, tcpreplay_pid):
                 if stoping_time > 0 and time.time() - stoping_time > 1.0:
                     print("finally stop")
                     sys.exit(0) # tcpreplay is already completed, stop lucid
-                #time.sleep(0.2)
 
 def report_results(Y_true, Y_pred,packets, model_name, dataset_filename, stats_file,prediction_time,process_time, 
-    trasmission_time,packets_per_sample_sizes, avg_packets_in_registers_in_round, total_packet_captured_in_round, ignored_packets, round_time, round_counter, packet_writer):
+    trasmission_time=0,packets_per_sample_sizes=0, avg_packets_in_registers_in_round=0, total_packet_captured_in_round=0, ignored_packets=0, round_time=0, round_counter=0, packet_writer=0):
     
     ddos_rate = '{:04.3f}'.format(sum(Y_pred)/Y_pred.shape[0])
 
@@ -516,8 +505,6 @@ def report_results(Y_true, Y_pred,packets, model_name, dataset_filename, stats_f
 
 if __name__ == "__main__":
 
-    #background_speed=os.getenv("background_speed")
-    #attack_speed=os.getenv("attack_speed")
     pcap_folder=os.getenv("pcap_folder")
 
     pcap_file=os.getenv("pcap_file")
@@ -528,8 +515,6 @@ if __name__ == "__main__":
     interface=os.getenv("target_interface")
     attack_name=os.getenv("attack_name")
 
-    #attack_string="python traffic_generator.py attack -bs {} -as {} -pf {} -i {} -ad {}".format(background_speed, attack_speed, pcap_folder, interface, duration)
-    #attack_string="python traffic_generator.py -f {} -i {} -ad {} -s {}".format(pcap_file, interface, duration, attack_speed)
     attack_string="python traffic_generator.py -f {} -i {} -a {} -b {} -s {} -p {}".format(pcap_file, interface, attack_name, benign_file, speed, attack_packets)
     print(attack_string)
     attack=subprocess.Popen(attack_string, shell=True, stdout=subprocess.DEVNULL)
