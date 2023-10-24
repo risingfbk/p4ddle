@@ -66,7 +66,7 @@ BMv2 installs also the Python APIs required by the ```control-plane/p4_utils.py`
 ### Settings
 
 #### Settings in the data plane
-It is possible to change the register size inside the file  ```data-plane/p4_bloom_management.p4```. Edit these lines:
+It is possible to change the register size inside the file  ```data-plane/p4_packet_management.p4```. Edit these lines:
 
 ```
 #define PACKETS 131072
