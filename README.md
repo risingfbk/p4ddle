@@ -56,7 +56,7 @@ Information about the settings and how to execute each algorithm can be found on
 
 If you are using P4DDLe's code for a scientific research, please cite the related paper in your manuscript as follows:
 
-*Doriguzzi-Corin, R., Dias Knob, L. A., Mendozzi, L., Siracusa, D., and Savi, M.. (2023) "Introducing Packet-Level Analysis in Programmable Data Planes to Advance Network Intrusion Detection". *arXiv preprint arXiv:2307.05936*.*
+*Doriguzzi-Corin, R., Knob, L. A. D., Mendozzi, L., Siracusa, D., and Savi, M. (2023). "Introducing packet-level analysis in programmable data planes to advance Network Intrusion Detection". *Computer Networks*, 110162.*
 
 ## License
 
