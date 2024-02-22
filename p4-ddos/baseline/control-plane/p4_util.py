@@ -1,7 +1,6 @@
 import sys
-sys.path.append('/usr/local/lib/python3.9/site-packages') # workaround for bmpy_utils and bm_runtime. these are not pip installations but come with behavioural model installation
 import json
-import bmpy_utils as utils
+import include.bmpy_utils as utils
 from collections import OrderedDict
 
 from bm_runtime.standard import Standard

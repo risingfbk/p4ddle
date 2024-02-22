@@ -505,21 +505,21 @@ def report_results(Y_true, Y_pred,packets, model_name, dataset_filename, stats_f
 
 if __name__ == "__main__":
 
-    pcap_folder=os.getenv("pcap_folder")
+    # pcap_folder=os.getenv("pcap_folder")
 
-    pcap_file=os.getenv("pcap_file")
-    benign_file=os.getenv("benign_trace")
-    speed=os.getenv("speed")
-    attack_packets=os.getenv("attack_packets")
+    # pcap_file=os.getenv("pcap_file")
+    # benign_file=os.getenv("benign_trace")
+    # speed=os.getenv("speed")
+    # attack_packets=os.getenv("attack_packets")
 
-    interface=os.getenv("target_interface")
-    attack_name=os.getenv("attack_name")
+    # interface=os.getenv("target_interface")
+    # attack_name=os.getenv("attack_name")
 
-    attack_string="python traffic_generator.py -f {} -i {} -a {} -b {} -s {} -p {}".format(pcap_file, interface, attack_name, benign_file, speed, attack_packets)
-    print(attack_string)
-    attack=subprocess.Popen(attack_string, shell=True, stdout=subprocess.DEVNULL)
+    # attack_string="python traffic_generator.py -f {} -i {} -a {} -b {} -s {} -p {}".format(pcap_file, interface, attack_name, benign_file, speed, attack_packets)
+    # print(attack_string)
+    # attack=subprocess.Popen(attack_string, shell=True, stdout=subprocess.DEVNULL)
 
-    pid=attack.pid
+    # pid=attack.pid
     time.sleep(2) # to prevent NaN
     main(sys.argv[1:],pid)
 

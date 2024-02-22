@@ -509,13 +509,13 @@ if __name__ == "__main__":
 
     pcap_file=os.getenv("pcap_file")
     benign_file=os.getenv("benign_trace")
-    speed=os.getenv("speed")
+    attack_duration=os.getenv("duration")
     attack_packets=os.getenv("attack_packets")
 
     interface=os.getenv("target_interface")
     attack_name=os.getenv("attack_name")
-
-    attack_string="python traffic_generator.py -f {} -i {} -a {} -b {} -s {} -p {}".format(pcap_file, interface, attack_name, benign_file, speed, attack_packets)
+    print("python traffic_generator.py -f {} -i {} -a {} -b {} -d {} -p {}".format(pcap_file, interface, attack_name, benign_file, attack_duration, attack_packets))
+    attack_string="python traffic_generator.py -f {} -i {} -a {} -b {} -d {} -p {}".format(pcap_file, interface, attack_name, benign_file, attack_duration, attack_packets)
     attack=subprocess.Popen(attack_string, shell=True, stdout=subprocess.DEVNULL)
 
     pid=attack.pid

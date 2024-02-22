@@ -8,12 +8,13 @@ import psutil
 
 def main():
     args=parse_input()
-    replay_pcap(args.pcap_file, args.interface, args.attack_name, args.benign_file, args.speed, args.attack_packets)
+    replay_pcap(args.pcap_file, args.interface, args.attack_name, args.benign_file, args.attack_duration, args.attack_packets)
 
 
-def replay_pcap(pcap_file, interface, attack_name, benign_file, speed, attack_packets):
+def replay_pcap(pcap_file, interface, attack_name, benign_file, attack_duration, attack_packets):
 
-    tend=time.time()+60*int(speed)
+    tend=time.time()+60*int(attack_duration)
+    print("start replaing traffic for {} minutes".format(attack_duration))
     if not os.path.exists(pcap_file):
         print("Pcap file doesn't exist")
         sys.exit(-1)
@@ -29,7 +30,6 @@ def replay_pcap(pcap_file, interface, attack_name, benign_file, speed, attack_pa
     while time.time() <= tend:
         time.sleep(1)
         if replay.status() == psutil.STATUS_ZOMBIE or replay.status() == psutil.STATUS_DEAD:
-            print("start replaing traffic again at {} Mbps".format(speed))
             replay=subprocess.Popen(['/usr/bin/tcpreplay', '-K', '--intf1', interface, pcap_file], stdout=subprocess.DEVNULL)
             replay = psutil.Process(replay.pid)
 
@@ -60,8 +60,8 @@ def parse_input():
     parser.add_argument('-i', '--interface', type=str, help='Interface used to send traffic')
     parser.add_argument('-a','--attack_name', type=str, help='Name of the attack')
     parser.add_argument('-b','--benign_file', type=str, help='Benign trace')
-    parser.add_argument('-s','--speed', type=str, help='Benign speed')
-    parser.add_argument('-p','--attack_packets', type=str, help='Numpackets')
+    parser.add_argument('-d','--duration', type=str, help='Attack duration')
+    parser.add_argument('-p','--attack_packets', type=str, help='Num packets')
    
     return parser.parse_args()
 

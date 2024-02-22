@@ -9,7 +9,7 @@ declare -a attack_names=(dns mssql snmp ldap netbios portmap ssdp udplag)
 declare -a attack_traces=(dns-chunk2-75.pcap mssql-chunk2-75.pcap snmp-chunk1-75.pcap ldap-chunk2-75.pcap netbios-chunk2-75.pcap portmap-chunk-full-75.pcap ssdp-chunk2-75.pcap udplag-chunk5-75.pcap)
 declare -a benign_packets=(1961 18627 13031 6075 12066 12118 22723 15261)
 
-declare -a attack_speed=6
+declare -a attack_duration=6
 
 export benign_trace=../../dataset/Benign/dataset-benign0.pcap
 
@@ -29,7 +29,7 @@ do
 	do
 		export attack_name=${attack_names[$i]}
 		export pcap_file=$folder${attack_traces[$i]}
-		export speed=${attack_speed}
+		export duration=${attack_duration}
 		export benign_trace
 		export sampling
 		export attack_packets=${benign_packets[$i]}

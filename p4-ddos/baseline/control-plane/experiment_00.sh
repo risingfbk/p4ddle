@@ -9,7 +9,7 @@ declare -a attack_names=(dns mssql snmp ldap netbios portmap ssdp udplag)
 declare -a attack_traces=(dns-chunk2.pcap mssql-chunk2.pcap snmp-chunk1.pcap ldap-chunk2.pcap netbios-chunk2.pcap portmap-chunk-full.pcap ssdp-chunk2.pcap udplag-chunk5.pcap)
 declare -a benign_packets=(0 0 0 0 0 0 0 0)
 
-declare -a attack_speed=6
+declare -a attack_duration=6
 
 export benign_trace=../../dataset/Benign/dataset-benign0.pcap
 
@@ -29,13 +29,13 @@ do
 	do
 		export attack_name=${attack_names[$i]}
 		export pcap_file=$folder${attack_traces[$i]}
-		export speed=${attack_speed}
+		export duration=${attack_duration}
 		export benign_trace
 		export sampling
 		export attack_packets=${benign_packets[$i]}
 		echo "start lucid with the trace $attack_name, with sampling at 1 packet over $sampling"
 		echo "register_write sampling_treshold 0 $sampling" | simple_switch_CLI --thrift-port 22222 # set sampling rate in switch
-		python3 lucid_cnn.py --predict_live localhost:22222 --model $model --dataset_type $dataset_type
+		echo "python3 lucid_cnn.py --predict_live localhost:22222 --model $model --dataset_type $dataset_type"
 		echo ""
 		echo ""
 		echo ""
