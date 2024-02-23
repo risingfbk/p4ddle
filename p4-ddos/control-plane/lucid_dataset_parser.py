@@ -47,9 +47,6 @@ IDS2018_DDOS_FLOWS = {'attackers': ['18.218.115.60', '18.219.9.1','18.219.32.43'
 IDS2017_DDOS_FLOWS = {'attackers': ['172.16.0.1'],
                       'victims': ['192.168.10.50']}
 
-IDS2017_DDOS_FLOWS_CHANGED = {'attackers': ['172.16.0.' + str(x) for x in range(1,255)],
-                      'victims': ['192.168.10.' + str(x) for x in range(1,255)]}
-
 DOS2019_FLOWS = {'attackers': ['172.16.0.5'], 'victims': ['192.168.50.1', '192.168.50.4']}
 
 CUSTOM_DDOS_SYN = {'attackers': ['11.0.0.' + str(x) for x in range(1,255)],
@@ -57,7 +54,6 @@ CUSTOM_DDOS_SYN = {'attackers': ['11.0.0.' + str(x) for x in range(1,255)],
 
 DDOS_ATTACK_SPECS = {
     'IDS2017' : IDS2017_DDOS_FLOWS,
-    'IDS2017C': IDS2017_DDOS_FLOWS_CHANGED, 
     'IDS2018' : IDS2018_DDOS_FLOWS,
     'SYN2020' : CUSTOM_DDOS_SYN,
     'DOS2019': DOS2019_FLOWS
