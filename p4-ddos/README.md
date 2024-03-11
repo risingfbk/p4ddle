@@ -8,7 +8,7 @@ We use an altered version of LUCID as the P4ddle/Baseline control-plane. The mai
 
 - Ubuntu Linux 22.04
 - Git
-- Python 3.x
+- Python 3.10
 - Pip3
 
 ### Step 1: Installing Required Packages
