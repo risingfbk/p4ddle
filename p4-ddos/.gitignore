@@ -4,3 +4,4 @@ sample-dataset/*.log
 sample-dataset/*.hdf5
 sample-dataset/*.csv
 sample-dataset/*.h5
+log/

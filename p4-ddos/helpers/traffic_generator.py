@@ -20,7 +20,7 @@ def replay_pcap(pcap_file, interface, attack_name, benign_file, attack_duration,
         sys.exit(-1)
   
     print("start to play the trace %s - %s"%(attack_name, attack_packets))
-    time.sleep(10)
+    time.sleep(3)
     replay=subprocess.Popen(['/usr/bin/tcpreplay', '-K', '--intf1', interface, '--loop', '100', pcap_file], stdout=subprocess.DEVNULL)
     replay = psutil.Process(replay.pid)
     if attack_packets != "0":
@@ -60,8 +60,8 @@ def parse_input():
     parser.add_argument('-i','--interface', type=str, help='Interface used to send traffic')
     parser.add_argument('-a','--attack_name', type=str, help='Name of the attack')
     parser.add_argument('-b','--benign_file', type=str, help='Benign trace')
-    parser.add_argument('-d','--duration', type=str, help='Attack duration')
-    parser.add_argument('-p','--attack_packets', type=str, help='Num packets')
+    parser.add_argument('-d','--attack_duration', type=str, help='Attack duration')
+    parser.add_argument('-p','--attack_packets', type=str, default="0", help='Num packets')
    
     return parser.parse_args()
 

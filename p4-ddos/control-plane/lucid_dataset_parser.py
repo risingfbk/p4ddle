@@ -286,7 +286,7 @@ def process_live_traffic(traffic_source, dataset_type, in_labels, max_flow_len, 
         extraction=0
         processing=0
 
-        register_size = 2 ** int(os.getenv("register_bits").split("x")[0]) # AxN i.e. 16x2
+        register_size = 2 ** int(register_bits) # AxN i.e. 16x2
 
         round_counter = traffic_source.read_register("round_counter",0)
         round_time = time.time()

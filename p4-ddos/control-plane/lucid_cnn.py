@@ -288,7 +288,7 @@ def main(argv):
     parser.add_argument('-r', '--register_bits', nargs='?', type=int, default=None,
                         help='Size of the register in bits')
     
-    parser.add_argument('-w', '--register_width', nargs='?', type=int, default=None,
+    parser.add_argument('-w', '--register_width', nargs='?', type=str, default=None,
                         help='Size of the registry memory')
 
     parser.add_argument('-s', '--sampling', nargs='?', type=int, default=None,
@@ -398,8 +398,8 @@ def main(argv):
             stats_filename += '_' + args.attack_name
             packet_filename += '_' + args.attack_name
         if args.register_bits:
-            stats_filename += '_' + args.register_bits
-            packet_filename += '_' + args.register_bits
+            stats_filename += '_' + str(args.register_bits)
+            packet_filename += '_' + str(args.register_bits)
         if args.register_width:
             stats_filename += '_' + args.register_width
             packet_filename += '_' + args.register_width
@@ -472,7 +472,7 @@ def main(argv):
                     
                     if isinstance(traffic_source, p4_util.RuntimeAPI):
                         samples, process_time, trasmission_time, packets_per_sample_sizes, avg_packets_in_registers_in_round, total_packet_captured_in_round, round_time, round_counter =  \
-                            process_live_traffic(traffic_source, args.dataset_type, labels, max_flow_len, p4_compatible, traffic_type="all", time_window=time_window, switch_impl=args.switch_impl)
+                            process_live_traffic(traffic_source, args.dataset_type, labels, max_flow_len, p4_compatible, traffic_type="all", time_window=time_window, switch_impl=args.switch_impl, register_bits=args.register_bits)
                     elif isinstance(traffic_source, pyshark.FileCapture):
                         samples, last_round = process_live_traffic(traffic_source, args.dataset_type, labels, max_flow_len, p4_compatible, traffic_type="all", time_window=time_window)
                     else:
@@ -497,7 +497,7 @@ def main(argv):
                         if isinstance(traffic_source, p4_util.RuntimeAPI):
                             report_results(Y_true, Y_pred, packets, model_name_string,
                                         data_source, stats_file, prediction_time,process_time, trasmission_time,packets_per_sample_sizes,
-                                        avg_packets_in_registers_in_round, total_packet_captured_in_round, round_time, round_counter, packet_writer)
+                                        avg_packets_in_registers_in_round, total_packet_captured_in_round, round_time, round_counter, packet_writer, args.switch_impl)
                         else:
                             report_results(Y_true, Y_pred, packets, model_name_string, data_source, stats_file, prediction_time, short_header=True)
                             if isinstance(traffic_source, pyshark.FileCapture):
@@ -511,7 +511,7 @@ def main(argv):
             sys.exit(0)
 
 def report_results(Y_true, Y_pred,packets, model_name, dataset_filename, stats_file,prediction_time,process_time=0, 
-    trasmission_time=0,packets_per_sample_sizes=0, avg_packets_in_registers_in_round=0, total_packet_captured_in_round=0, round_time=0, round_counter=0, packet_writer=0, short_header=False):
+    trasmission_time=0,packets_per_sample_sizes=0, avg_packets_in_registers_in_round=0, total_packet_captured_in_round=0, round_time=0, round_counter=0, packet_writer=0, short_header=False, switch_impl=None):
     
     ddos_rate = '{:04.3f}'.format(sum(Y_pred)/Y_pred.shape[0])
 
@@ -543,7 +543,7 @@ def report_results(Y_true, Y_pred,packets, model_name, dataset_filename, stats_f
             output_header = PREDICTION_HEADER_LIVE[:-1]
             output_string = model_name + "," + time_string_predict + "," + performance_string + "," + test_string_pre
         else:
-            if args.switch_impl == "p4ddle":
+            if switch_impl == "p4ddle":
                 test_string_pre = '{:05.4f}'.format(accuracy) + \
                           "," + '{:05.4f}'.format(loss) + "," + '{:05.4f}'.format(f1) + \
                           "," + '{:05.4f}'.format(ppv) + \
