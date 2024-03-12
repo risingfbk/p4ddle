@@ -85,8 +85,11 @@ python3 control-plane/lucid_cnn.py --train sample-dataset/
 After training the model, we can perform predictions on both sample data and live traffic:
 
 ```bash
-(venv) python3 control-plane/lucid_cnn.py --predict sample-dataset/ --model sample-dataset/4t-10n-DOS2019-LUCID-p4.h5
-(venv) python3 control-plane/lucid_cnn.py --predict_live sample-dataset/CIC-DDoS-2019-DNS.pcap --model sample-dataset/4t-10n-DOS2019-LUCID-p4.h5 --dataset_type DOS2019
+# test set
+python3 control-plane/lucid_cnn.py --predict sample-dataset/ --model sample-dataset/4t-10n-DOS2019-LUCID-p4.h5
+
+# predict a given pcap
+python3 control-plane/lucid_cnn.py --predict_live sample-dataset/CIC-DDoS-2019-DNS.pcap --model sample-dataset/4t-10n-DOS2019-LUCID-p4.h5 --dataset_type DOS2019
 ```
 
 ### Step 8: Initiating P4 Switch Implementation
