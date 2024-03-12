@@ -36,7 +36,7 @@ Now, let's install the required Python dependencies and mininet:
 
 ```bash
 sudo apt install -y tshark mininet tcpreplay
-(venv) pip3 install tensorflow==2.8.4 scikit-learn h5py pyshark protobuf==3.19.6 mininet thrift psutil
+pip3 install tensorflow==2.8.4 scikit-learn h5py pyshark protobuf==3.19.6 mininet thrift psutil
 ```
 
 ### Step 4: Installing and Compiling P4 Compiler and Behavioral Model
@@ -51,15 +51,15 @@ sudo apt update
 sudo apt install p4lang-p4c
 ```
 
-Unfortunately the BMv2 package to not contain the python libraries needed to run P4ddle, so we need to manually compile it:
+Unfortunately the BMv2 package to not contain the python libraries needed to run P4ddle, so we need to manually compile it (remember that you need to have the virtual environment activate):
 
 ```bash
-(venv) git clone https://github.com/p4lang/behavioral-model.git
-(venv) cd behavioral-model
-(venv) ./autogen.sh 
-(venv) ./configure --with-python_prefix=$VIRTUAL_ENV
-(venv) make -j3
-(venv) sudo make install
+git clone https://github.com/p4lang/behavioral-model.git
+cd behavioral-model
+./autogen.sh 
+./configure --with-python_prefix=$VIRTUAL_ENV
+make -j3
+sudo make install
 ```
 
 ### Step 5: Preparing the Dataset
@@ -67,8 +67,9 @@ Unfortunately the BMv2 package to not contain the python libraries needed to run
 Before we train our model, we need to prepare our dataset:
 
 ```bash
-(venv) python3 control-plane/lucid_dataset_parser.py --dataset_type DOS2019 --dataset_folder ../sample-dataset/ --packets_per_flow 10 --dataset_id DOS2019 --traffic_type all --time_window 4 --p4_compatible
-(venv) python3 control-plane/lucid_dataset_parser.py --preprocess_folder ../sample-dataset/
+cd p4-ddos
+python3 control-plane/lucid_dataset_parser.py --dataset_type DOS2019 --dataset_folder sample-dataset/ --packets_per_flow 10 --dataset_id DOS2019 --traffic_type all --time_window 4 --p4_compatible
+python3 control-plane/lucid_dataset_parser.py --preprocess_folder sample-dataset/
 ```
 
 ### Step 6: Training the Deep Learning Model
@@ -76,7 +77,7 @@ Before we train our model, we need to prepare our dataset:
 Now, to train the model, let's run:
 
 ```bash
-(venv) python3 control-plane/lucid_cnn.py --train ../sample-dataset/
+python3 control-plane/lucid_cnn.py --train sample-dataset/
 ```
 
 ### Step 7: Performing Live Predictions
@@ -90,24 +91,24 @@ After training the model, we can perform predictions on both sample data and liv
 
 ### Step 8: Initiating P4 Switch Implementation
 
-Now, to run the LUCID with the P4. We need to compile and start it, in a separate terminal:
+Now, to run the LUCID with the P4. We need to compile and start it, in a separate terminal (again venv mandatory):
 
 ```bash
 # Open a new terminal
 cd data-plane/baseline
 p4c --target bmv2 --arch v1model --std p4-16 p4_packet_management.p4
 
-(venv) cd ../runner
-(venv) sudo python3 launcher.py --behavioral-exe simple_switch --json ../baseline/p4_packet_management.json --cli simple_switch_CLI
+cd ../runner
+sudo python3 launcher.py --behavioral-exe simple_switch --json ../baseline/p4_packet_management.json --cli simple_switch_CLI
 ```
 
 ### Step 9: Generating Traffic
 
-While the P4 switch is running, let's generate traffic for testing:
+While the P4 switch is running, let's generate traffic for testing (activate venv!):
 
 ```bash
 # Open a new terminal
-(venv) sudo python3 helpers/traffic_generator.py -f sample-dataset/CIC-DDoS-2019-DNS.pcap -i s1-eth2 -d 600
+sudo python3 helpers/traffic_generator.py -f sample-dataset/CIC-DDoS-2019-DNS.pcap -i s1-eth2 -d 600
 ```
 
 ### Step 10: Live Predictions with the P4 Switch
@@ -116,7 +117,7 @@ Finally, with the switch running and with the traffic generator active, let's pe
 
 ```bash
 # In the first terminal
-(venv) python3 control-plane/lucid_cnn.py --predict_live localhost:22222 --model sample-dataset/4t-10n-DOS2019-LUCID-p4.h5 --dataset_type DOS2019 -r 14 -si baseline
+python3 control-plane/lucid_cnn.py --predict_live localhost:22222 --model sample-dataset/4t-10n-DOS2019-LUCID-p4.h5 --dataset_type DOS2019 -r 14 -si baseline
 ```
 
 ### Conclusion
