@@ -36,7 +36,7 @@ Now, let's install the required Python dependencies and mininet:
 
 ```bash
 sudo apt install -y tshark mininet tcpreplay
-pip3 install tensorflow==2.8.4 scikit-learn h5py pyshark protobuf==3.19.6 mininet thrift psutil
+pip3 install tensorflow==2.13.0 scikit-learn h5py pyshark protobuf==3.19.6 mininet thrift psutil
 ```
 
 ### Step 4: Installing and Compiling P4 Compiler and Behavioral Model

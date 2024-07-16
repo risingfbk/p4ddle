@@ -36,7 +36,8 @@ config = tf.compat.v1.ConfigProto(inter_op_parallelism_threads=1)
 
 from itertools import cycle
 from tensorflow.keras import regularizers
-from tensorflow.keras.optimizers import Adam,SGD
+from tensorflow.keras.optimizers.legacy import Adam
+from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.layers import Input, Dense, Activation, ZeroPadding2D, BatchNormalization, Flatten, Conv2D, Conv1D, LSTM, Reshape
 from tensorflow.keras.layers import AveragePooling2D, MaxPooling2D, Dropout, GlobalMaxPooling2D, GlobalAveragePooling2D
 from tensorflow.keras.models import Model, Sequential, save_model, load_model, clone_model
